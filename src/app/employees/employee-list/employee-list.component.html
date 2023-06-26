@@ -1,0 +1,91 @@
+<div class="card">
+
+   <!-- Modal -->
+   <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+         <!-- Modal content-->
+         <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title">Employee Details</h4>
+            </div>
+            <div class="modal-body">
+               Are you sure you want to delete the employee 
+               
+               <div *ngFor="let emp of detailedEmployee">
+                  <b>{{ this.detailedEmployee[0].name }} ?</b>
+                  
+                  <br>
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+               <button type="button" class="btn btn-danger" (click)="delete(this.detailedEmployee[0].id)" data-dismiss="modal">Yes</button>
+            </div>
+         </div>
+
+      </div>
+   </div>
+
+   <div class="card-header">
+      Employee List
+
+      <a href="/employees/add"  style="margin-left: 90%;" class="text-center Add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xe145;</i></a>
+   </div>
+
+   <div class="card-body">
+      <loader *ngIf="!employees"></loader>
+     
+      <div class="table-responsive">
+         <table class = "table table-bordered" *ngIf="employees?.length!==0">
+            <thead>
+               <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Contact Number</th>
+                  <th scope="col">Skills</th>
+                  <th> Action</th>
+               </tr>
+            </thead>
+            <tbody>
+             
+               <tr *ngFor="let employee of employees ">
+                  <td>{{ employee.id }}</td>
+                  <td>{{ employee.name }}</td>
+                  <td>{{ employee.email }}</td>
+                  <td>{{ employee.gender }}</td>
+                  <td>{{ employee.contactNumber }}</td>
+               
+               <td>  
+                <table >
+                      <tr *ngFor="let skill of employee.employeeSkills let i=index">  
+
+                         <td>
+                            {{(i+1)+ '.' +skill.skillName}}
+                         </td>                    
+                         
+                      </tr>
+
+                </table>
+
+            </td>
+
+            <td>
+                     
+               <a [routerLink]="['/employees/add', employee.id]" style="margin-left: 10%;" class="edit " title="edit" data-toggle="tooltip"><i class="btn-success material-icons">&#xE254;</i></a>
+            
+               <a style="margin-left: 10%;" (click)="getDetails(employee.id)" data-target="#myModal" class="delete" title="delete" data-toggle="tooltip"><i class=" btn-danger material-icons">&#xE872;</i></a>
+                
+          </td>
+
+        </tr>
+        
+    </tbody>
+         </table>
+      </div>
+   </div>
+
+</div>
+
