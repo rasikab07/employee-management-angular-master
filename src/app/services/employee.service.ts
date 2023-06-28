@@ -16,12 +16,13 @@ const httpOptions = {
 })
 export class EmployeeService {
 
-   private empoyeeUrl = "http://localhost:5032/api/Employee";
+   private empoyeeUrl = "/api/Employee";
    
    constructor(private http: HttpClient) { }
 
    // GET - get all employees 
    getEmployees(): Observable<IEmployee[]> {
+      debugger
       return this.http.get<IEmployee[]>(this.empoyeeUrl)
          .pipe(
             catchError(this.handleError)
